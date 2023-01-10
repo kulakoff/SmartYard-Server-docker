@@ -1,17 +1,24 @@
 TODO:
 
-1. ssl для nginx, положить из в:
+1. Copy enviroments
+   ````
+   cp .example.env .env
+   ````
+2. Make ssl for NGINX and copy to dir:
    ````
    ./_docker/nginx/certs
    ````
-2. Clone RBT repo:
+3. Clone RBT repo:
    ````
    git clone git@github.com:rosteleset/rbt.git
    ````
-3. Init clickhouse tables  
-https://github.com/rosteleset/rbt/blob/main/install
+4. Config RBT, read the docs:  
+   https://github.com/rosteleset/rbt/blob/main/install/03.install.md
+   
+5. Init clickhouse tables  
+   https://github.com/rosteleset/rbt/blob/main/install
 
-4. Start docker containers:
+6. Start docker containers:
    ````
    docker compose up -d
    ```` 
