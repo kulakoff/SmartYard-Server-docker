@@ -18,17 +18,53 @@ TODO:
 5. Init clickhouse tables  
    https://github.com/rosteleset/rbt/blob/main/install
 
-6. Start docker containers:
+6. Check config Asterisk  for start in docker container.  
+   Example by host in .env
+   ###### /rbt/asterisk/http
+   ````
+   [general]
+   enabled = yes
+   bindaddr = 172.28.0.1
+   bindport = 8088
+   tlsenable = no    
+   ````
+   ###### /rbt/asterisk/config.lua
+   ````
+   realm = "rbt"
+   dm_server = "http://172.28.0.2/asterisk/extensions"
+   redis_server_host = "172.28.0.4"
+   redis_server_port = 6379
+   redis_server_auth = "redis_example_passwd"
+   log.outfile = false
+   trunk = "first"
+   lang = "ru"
+   ````
+   ###### /rbt/asterisk/extconfig.conf
+   ````
+   [settings]
+   ps_aors = curl,http://172.28.0.2/asterisk/aors
+   ps_auths = curl,http://172.28.0.2/asterisk/auths
+   ps_endpoints = curl,http://172.28.0.2/asterisk/endpoints
+
+   ````
+7. Docker  
+   Start docker containers:
    ````
    docker compose up -d
-   ```` 
+   ````  
+   Stop containers:
+   ````
+   docker compose  down
+   ````
+
 ____
+### RBT CLI
 #### Autoconfig intercom 
-First time config
+ ###### First time config
    ``````
    docker exec -it rbt_app php server/cli.php --autoconfigure-domophone=3 --first-time
    ``````
-Config intercom, config update (added keys or flats)
+###### Config intercom, config update (added keys or flats)
    ``````
    docker exec -it rbt_app php server/cli.php --autoconfigure-domophone=3
    ``````

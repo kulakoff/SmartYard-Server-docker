@@ -1,6 +1,6 @@
 .idea
 .env
-_docker/syslog
+docker/syslog
 /rbt
 
 #tests

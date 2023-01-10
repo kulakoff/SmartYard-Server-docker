@@ -6,9 +6,9 @@ services:
     container_name: rbt_nginx
     volumes:
       - ./rbt:/var/www/html                           # RBT dir
-      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/    # Nginx config
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/    # Nginx config
 #LOGS optional
-#      - ./_docker/log/nginx/:/var/log/nginx
+#      - ./docker/log/nginx/:/var/log/nginx
     ports:
     - "8876:80"                                       # RBT HTTP port
     - "9091:9091"                                     # RBT HTTPS port
@@ -26,7 +26,7 @@ services:
     container_name: rbt_app
     build:
       context: .
-      dockerfile: _docker/app/Dockerfile
+      dockerfile: docker/app/Dockerfile
     volumes:
       - ./rbt/:/var/www/html
     depends_on:
@@ -95,7 +95,7 @@ services:
     container_name: rbt_asterisk
     build:
       context: .
-      dockerfile: _docker/asterisk/Dockerfile
+      dockerfile: docker/asterisk/Dockerfile
     volumes:
       - ./rbt/asterisk:/etc/asterisk
     depends_on:
