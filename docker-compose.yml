@@ -1,0 +1,140 @@
+version: '3.9'
+
+services:
+  nginx: 
+    image: nginx:latest
+    container_name: rbt_nginx
+    restart: unless-stopped
+    volumes:
+      - ./rbt:/var/www/html                           # RBT dir
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/    # Nginx config
+#LOGS optional
+#      - ./_docker/log/nginx/:/var/log/nginx
+    ports:
+    - "8876:80"                                       # RBT HTTP port
+    - "9091:9091"                                     # RBT HTTPS port
+    depends_on:
+      - app
+      - redis
+      - clickhouse_server
+      - postgres
+    networks:
+      rbt-app-network:
+        ipv4_address: 172.28.0.2
+
+  app:
+    container_name: rbt_app
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./rbt/:/var/www/html
+    depends_on:
+      - redis  
+    networks:
+      rbt-app-network:
+        ipv4_address: 172.28.0.3
+
+  redis:
+    container_name: rbt_db_redis
+    restart: unless-stopped
+    image: redis:7-alpine
+    command: ["sh", "-c", "exec redis-server --requirepass \"${REDIS_PASSWORD}\""]
+    ports:
+      - "6379:6379"
+    networks:
+      rbt-app-network:
+        ipv4_address: 172.28.0.4
+
+  mongo:
+    container_name: rbt_db_mongo
+    restart: always
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_PASSWORD}"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      rbt-app-network:
+        ipv4_address: 172.28.0.5
+
+  postgres:
+    container_name: rbt_db_postgress
+    restart: unless-stopped
+    image: postgres:15.1
+    environment:
+      POSTGRES_DB: "rbt"
+      POSTGRES_USER: "rbt"
+      POSTGRES_PASSWORD: "rbt"
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      rbt-app-network:
+        ipv4_address: 172.28.0.6
+
+  clickhouse_server:
+    container_name: rbt_db_clickhouse
+    restart: unless-stopped
+    image: clickhouse/clickhouse-server
+    ports:
+     - "8123:8123"
+     - "9004:9004"
+    volumes:
+     - db_ch:/var/lib/clickhouse
+    environment:
+      CLICKHOUSE_DB: "default"
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+      CLICKHOUSE_USER: "default"
+      CLICKHOUSE_PASSWORD: "qwertyuiop"
+    networks:
+      rbt-app-network:
+        ipv4_address: 172.28.0.7
+
+  adminer:
+    container_name: rbt_db_adminer
+    image: adminer:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      rbt-app-network:
+        ipv4_address: 172.28.0.8
+
+  asterisk:
+    container_name: rbt_asterisk
+#    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: _docker/asterisk/Dockerfile
+    volumes:
+      - ./rbt/asterisk:/etc/asterisk
+    depends_on:
+      - nginx
+      - redis
+    network_mode: host
+    ## SIP UDP port 5060
+    ## SIP TCP port 5060
+    ## WS port 8088
+    ## RTP ports 10000-20000
+
+volumes:
+  db:
+  db_ch:
+  mongodata:
+
+networks:
+  rbt-app-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.28.0.0/24"
+          gateway: "172.28.0.1"
