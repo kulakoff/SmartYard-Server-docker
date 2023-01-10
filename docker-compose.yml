@@ -42,7 +42,7 @@ services:
     image: redis:7-alpine
     command: ["sh", "-c", "exec redis-server --requirepass \"${REDIS_PASSWORD}\""]
     ports:
-      - "6379:6379"
+      - "6379"
     networks:
       rbt-app-network:
         ipv4_address: 172.28.0.4
@@ -52,7 +52,7 @@ services:
     restart: always
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - "27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${MONGO_USERNAME}"
       MONGO_INITDB_ROOT_PASSWORD: "${MONGO_PASSWORD}"
@@ -71,7 +71,7 @@ services:
       POSTGRES_USER: "rbt"
       POSTGRES_PASSWORD: "rbt"
     ports:
-      - "5432:5432"
+      - "5432"
     volumes:
       - db:/var/lib/postgresql/data
     networks:
@@ -83,8 +83,8 @@ services:
     restart: unless-stopped
     image: clickhouse/clickhouse-server
     ports:
-     - "8123:8123"
-     - "9004:9004"
+     - "8123"
+     - "9004"
     volumes:
      - db_ch:/var/lib/clickhouse
     environment:
@@ -96,21 +96,8 @@ services:
       rbt-app-network:
         ipv4_address: 172.28.0.7
 
-  adminer:
-    container_name: rbt_db_adminer
-    image: adminer:latest
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
-    networks:
-      rbt-app-network:
-        ipv4_address: 172.28.0.8
-
   asterisk:
     container_name: rbt_asterisk
-#    restart: unless-stopped
     build:
       context: .
       dockerfile: _docker/asterisk/Dockerfile

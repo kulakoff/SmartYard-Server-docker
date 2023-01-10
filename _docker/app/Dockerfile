@@ -1,4 +1,4 @@
-FROM php:8.0-fpm
+FROM php:8.2-fpm
 
 #VOLUME /var/www/html
 RUN apt-get update && apt-get install -y \
@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
       git && \
       pecl install redis && \
       pecl install mongodb && \
-     docker-php-ext-enable redis && \
+      docker-php-ext-enable redis && \
       docker-php-ext-enable mongodb && \
       docker-php-ext-install mbstring && \
       docker-php-ext-install pdo pdo_pgsql pgsql && \
