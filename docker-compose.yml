@@ -4,7 +4,6 @@ services:
   nginx: 
     image: nginx:latest
     container_name: rbt_nginx
-    restart: unless-stopped
     volumes:
       - ./rbt:/var/www/html                           # RBT dir
       - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/    # Nginx config
@@ -24,7 +23,6 @@ services:
 
   app:
     container_name: rbt_app
-    restart: unless-stopped
     build:
       context: .
       dockerfile: _docker/app/Dockerfile
@@ -38,9 +36,8 @@ services:
 
   redis:
     container_name: rbt_db_redis
-    restart: unless-stopped
     image: redis:7-alpine
-    command: ["sh", "-c", "exec redis-server --requirepass \"${REDIS_PASSWORD}\""]
+    command: ["sh", "-c", "exec redis-server --requirepass \"${RBT_REDIS_PASSWORD}\""]
     ports:
       - "6379"
     networks:
@@ -49,7 +46,6 @@ services:
 
   mongo:
     container_name: rbt_db_mongo
-    restart: always
     image: mongo:latest
     ports:
       - "27017"
@@ -64,7 +60,6 @@ services:
 
   postgres:
     container_name: rbt_db_postgress
-    restart: unless-stopped
     image: postgres:15.1
     environment:
       POSTGRES_DB: "rbt"
@@ -80,7 +75,6 @@ services:
 
   clickhouse_server:
     container_name: rbt_db_clickhouse
-    restart: unless-stopped
     image: clickhouse/clickhouse-server
     ports:
      - "8123"

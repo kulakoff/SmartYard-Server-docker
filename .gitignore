@@ -1,5 +1,8 @@
 .idea
+.env
 _docker/syslog
 /rbt
+
+#tests
 /rbt-asterisk
 /rbt-asterisk_
