@@ -4,9 +4,10 @@ TODO:
    ````
    cp .example.env .env
    ````
-2. Make ssl for NGINX and copy to dir:
+2. Make ssl for NGINX and copy to dir ./docker/nginx/certs:
    ````
-   ./_docker/nginx/certs
+   ./docker/nginx/conf.d/certs/nginx.key
+   ./docker/nginx/conf.d/certs/nginx.crt
    ````
 3. Clone RBT repo:
    ````
