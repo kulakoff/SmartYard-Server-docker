@@ -58,6 +58,15 @@ TODO:
    docker compose  down
    ````
 
+8. Syslog ?
+
+cd ./rbt/server/syslog
+cp config.sample.json config.json
+
+modify config file
+
+npm i
+npm run start
 ____
 ### RBT CLI
 #### Autoconfig intercom 
