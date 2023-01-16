@@ -1,6 +1,8 @@
 FROM php:8.2-fpm
 
 #VOLUME /var/www/html
+COPY docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
+
 RUN apt-get update && apt-get install -y \
       git \
       apt-utils \
@@ -9,6 +11,7 @@ RUN apt-get update && apt-get install -y \
       libonig-dev \
       libcurl4-openssl-dev \
       libssl-dev \
+      ffmpeg \
       git && \
       pecl install redis && \
       pecl install mongodb && \
@@ -19,6 +22,6 @@ RUN apt-get update && apt-get install -y \
       apt-get clean && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY _docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
+# COPY docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
 
 WORKDIR /var/www/html
