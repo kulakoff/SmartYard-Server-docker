@@ -60,7 +60,7 @@ services:
         ipv4_address: "${RBT_MONGO_NETWORK_ADDRESS}"
 
   postgres:
-    container_name: rbt_db_postgress
+    container_name: rbt_db_postgres
     image: postgres:15.1
     environment:
       POSTGRES_DB: "rbt"
