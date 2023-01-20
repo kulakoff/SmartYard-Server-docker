@@ -59,6 +59,7 @@ TODO:
    ````
 
 8. Syslog ?
+coming soon
 
 cd ./rbt/server/syslog
 cp config.sample.json config.json
