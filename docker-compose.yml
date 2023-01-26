@@ -7,11 +7,9 @@ services:
     volumes:
       - ./rbt:/var/www/html                           # RBT dir
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/    # Nginx config
-#LOGS optional
-#      - ./docker/log/nginx/:/var/log/nginx
     ports:
     - "8876:80"                                       # RBT HTTP port
-    - "9091:9091"                                     # RBT HTTPS port
+    - "9091:443"                                      # RBT HTTPS port
     depends_on:
       - app
       - redis
