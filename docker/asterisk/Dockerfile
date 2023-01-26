@@ -4,12 +4,12 @@ LABEL maintainer="LanTa team"
 USER root
 ENV ASTERISK_VERSION 18-current
 
-COPY ./_docker/asterisk/build-asterisk.sh /
+COPY ./docker/asterisk/build-asterisk.sh /
 RUN sh build-asterisk.sh
 
 EXPOSE 5060/udp 5060/tcp 10000-20000/udp 8088/tcp
 
-COPY ./_docker/asterisk/docker-entrypoint.sh /
+COPY ./docker/asterisk/docker-entrypoint.sh /
 WORKDIR /
 RUN chmod +x /docker-entrypoint.sh
 
