@@ -6,3 +6,4 @@ docker/syslog
 #tests
 /rbt-asterisk
 /rbt-asterisk_
+/docker/rtpengine

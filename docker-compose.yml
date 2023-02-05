@@ -100,14 +100,15 @@ services:
       - ./rbt/asterisk:/etc/asterisk
     depends_on:
       - nginx
-    ports:
-     - "5060/tcp"             # SIP UDP port 5060
-     - "5060/udp"             # SIP TCP port 5060
-     - "8088/tcp"             # WS port 8088
-    ## RTP ports 10000-20000
-    networks:
-      rbt-app-network:
-        ipv4_address: "${RBT_ASTERISK_NETWORK_ADDRESS}"
+    network_mode: host  
+    # ports:
+    #  - "5060/tcp"             # SIP UDP port 5060
+    #  - "5060/udp"             # SIP TCP port 5060
+    #  - "8088/tcp"             # WS port 8088
+    # ## RTP ports 10000-20000
+    # networks:
+    #   rbt-app-network:
+    #     ipv4_address: "${RBT_ASTERISK_NETWORK_ADDRESS}"
 
 volumes:
   db:
