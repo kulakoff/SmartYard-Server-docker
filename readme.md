@@ -48,14 +48,14 @@ TODO:
    ps_endpoints = curl,http://172.28.0.2/asterisk/endpoints
 
    ````
-7. Docker  
+7. Docker
    Start docker containers:
    ````
-   docker compose up -d
+   make up
    ````  
    Stop containers:
    ````
-   docker compose  down
+   make down
    ````
 
 8. Syslog ?
