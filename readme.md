@@ -49,6 +49,7 @@ TODO:
 
    ````
 7. Docker
+
    Start docker containers:
    ````
    make up
