@@ -6,8 +6,8 @@ TODO:
    ````
    cp .example.env .env
    ````
-2. Make ssl for NGINX and copy to dir ./docker/nginx/certs:
-   use (acme.sh)[https://github.com/acmesh-official/acme.sh]
+2. Make ssl for NGINX and copy to dir ./docker/nginx/certs:  
+   use [acme.sh](https://github.com/acmesh-official/acme.sh)
    ````
    ./docker/nginx/conf.d/certs/nginx.key
    ./docker/nginx/conf.d/certs/nginx.crt
