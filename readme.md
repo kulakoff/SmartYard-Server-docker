@@ -1,10 +1,13 @@
 TODO:
 
+# Only test, not for production!
+
 1. Copy enviroments
    ````
    cp .example.env .env
    ````
 2. Make ssl for NGINX and copy to dir ./docker/nginx/certs:
+   use (acme.sh)[https://github.com/acmesh-official/acme.sh]
    ````
    ./docker/nginx/conf.d/certs/nginx.key
    ./docker/nginx/conf.d/certs/nginx.crt
@@ -48,14 +51,15 @@ TODO:
    ps_endpoints = curl,http://172.28.0.2/asterisk/endpoints
 
    ````
-7. Docker  
+7. Docker
+
    Start docker containers:
    ````
-   docker compose up -d
+   make up
    ````  
    Stop containers:
    ````
-   docker compose  down
+   make down
    ````
 
 8. Syslog ?
