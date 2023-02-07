@@ -1,5 +1,3 @@
-TODO:
-
 # Only test, not for production!
 
 1. Copy enviroments
