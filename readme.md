@@ -62,16 +62,16 @@ TODO:
    make down
    ````
 
-8. Syslog ?
-coming soon
+8. Syslog ?  
+   coming soon
 
-cd ./rbt/server/syslog
-cp config.sample.json config.json
+   cd ./rbt/server/syslog
+   cp config.sample.json config.json
 
-modify config file
+   modify config file
 
-npm i
-npm run start
+   npm i
+   npm run start
 ____
 ### RBT CLI
 #### Autoconfig intercom 
@@ -83,3 +83,5 @@ ____
    ``````
    docker exec -it rbt_app php server/cli.php --autoconfigure-domophone=3
    ``````
+
+.. other cli commands in rbt docs
