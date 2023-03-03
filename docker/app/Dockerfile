@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
       libcurl4-openssl-dev \
       libssl-dev \
       ffmpeg \
+      expect \
+      telnet \
       git && \
       pecl install redis && \
       pecl install mongodb && \
