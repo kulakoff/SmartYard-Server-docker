@@ -62,14 +62,15 @@
 
 8. Syslog ?  
    coming soon
-
+   ````
    cd ./rbt/server/syslog
    cp config.sample.json config.json
 
    modify config file
 
-   npm i
+   npm i  
    npm run start
+   ````
 ____
 ### RBT CLI
 #### Autoconfig intercom 
