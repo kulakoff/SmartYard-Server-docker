@@ -30,4 +30,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --filename=composer \
     --install-dir=/usr/local/bin
 
+COPY docker/app/entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT /entrypoint.sh
+
 WORKDIR /var/www/html
