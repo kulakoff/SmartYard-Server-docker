@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
       ffmpeg \
       expect \
       telnet \
+      vim \
       git && \
       pecl install redis && \
       pecl install mongodb && \
