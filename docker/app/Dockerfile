@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
       expect \
       telnet \
       vim \
+      cron \
       git && \
       pecl install redis && \
       pecl install mongodb && \
