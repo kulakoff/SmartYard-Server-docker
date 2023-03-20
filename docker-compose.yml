@@ -96,7 +96,7 @@ services:
       context: .
       dockerfile: docker/asterisk/Dockerfile
     volumes:
-      - ./rbt/asterisk:/etc/asterisk
+      - ./rbt/install/asterisk:/etc/asterisk
     depends_on:
       - nginx
     network_mode: host
