@@ -11,11 +11,12 @@ RUN apt-get update && apt-get install -y \
       libonig-dev \
       libcurl4-openssl-dev \
       libssl-dev \
+      libicu-dev \
       ffmpeg \
       expect \
       telnet \
-      vim \
       cron \
+      vim \	
       git && \
       pecl install redis && \
       pecl install mongodb && \
@@ -23,6 +24,7 @@ RUN apt-get update && apt-get install -y \
       docker-php-ext-enable mongodb && \
       docker-php-ext-install mbstring && \
       docker-php-ext-install pdo pdo_pgsql pgsql && \
+      docker-php-ext-configure intl && docker-php-ext-install intl && \
       apt-get clean && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
