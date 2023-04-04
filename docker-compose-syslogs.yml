@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  syslog_beward:
+    container_name: syslog_beward
+    build: 
+      context: .
+      dockerfile: docker/node/Dockerfile
+      target: base
+    volumes:
+      - ./rbt/server/syslog:/home/node/app
+    ports:
+      - '45450:45450/udp'  
+    command: npm run start:beward
+
+  syslog_qtech:
+    container_name: syslog_qtech
+    build: 
+      context: .
+      # dockerfile: docker/node/Dockerfile
+      target: base
+    volumes:
+      - ./syslog:/home/node/app
+    ports:
+      - '45452:45452/udp'  
+    command: npm run start:qtech
