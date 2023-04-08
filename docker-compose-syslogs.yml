@@ -1,26 +1,50 @@
 version: '3.8'
 
 services:
-  syslog_beward:
-    container_name: syslog_beward
+  ## Beward intercom syslog
+  rbt_syslog_beward:
+    container_name: rbt_syslog_beward
     build: 
       context: .
       dockerfile: docker/node/Dockerfile
-      target: base
     volumes:
       - ./rbt/server/syslog:/home/node/app
     ports:
-      - '45450:45450/udp'  
+      - "${RBT_SYSLOG_PORT_BEWARD}:${RBT_SYSLOG_PORT_BEWARD}/udp"  
     command: npm run start:beward
+    
+  # ## Beward intercom syslog for ds model
+  # rbt_syslog_beward_ds:
+  #   container_name: rbt_syslog_beward_ds
+  #   build: 
+  #     context: .
+  #     dockerfile: docker/node/Dockerfile
+  #   volumes:
+  #     - ./rbt/server/syslog:/home/node/app
+  #   ports:
+  #     - "${RBT_SYSLOG_PORT_BEWARD_DS}:${RBT_SYSLOG_PORT_BEWARD_DS}/udp"  
+  #   command: npm run start:beward_ds
 
-  syslog_qtech:
-    container_name: syslog_qtech
-    build: 
-      context: .
-      # dockerfile: docker/node/Dockerfile
-      target: base
-    volumes:
-      - ./syslog:/home/node/app
-    ports:
-      - '45452:45452/udp'  
-    command: npm run start:qtech
+  # ## QTECH intercom syslog
+  # rbt_syslog_qtech:
+  #   container_name: rbt_syslog_qtech
+  #   build: 
+  #     context: .
+  #     dockerfile: docker/node/Dockerfile
+  #   volumes:
+  #     - ./syslog:/home/node/app
+  #   ports:
+  #     - "${RBT_SYSLOG_PORT_QTECH}:${RBT_SYSLOG_PORT_QTECH}/udp"   
+  #   command: npm run start:qtech
+
+  # ## QTECH intercom syslog
+  # rbt_syslog_akuvox:
+  #   container_name: rbt_syslog_akuvox
+  #   build: 
+  #     context: .
+  #     dockerfile: docker/node/Dockerfile
+  #   volumes:
+  #     - ./syslog:/home/node/app
+  #   ports:
+  #     - "${RBT_SYSLOG_PORT_AKUVOX}:${RBT_SYSLOG_PORT_AKUVOX}/udp"   
+  #   command: npm run start:akuvox
