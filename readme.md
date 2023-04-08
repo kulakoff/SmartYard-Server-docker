@@ -49,28 +49,23 @@
    ps_endpoints = curl,http://172.28.0.2/asterisk/endpoints
 
    ````
-7. Docker
 
-   Start docker containers:
+   7. Syslog ?  
+   Edit the file docker-compose-syslogs.yml and specify the required containers to run 
+   By default enale only BEWARD syslog service.
+
+8. Docker
+
+   Start RBT services:
    ````
-   make up
+   make all-start
    ````  
-   Stop containers:
+   Stop RBT services:
    ````
-   make down
+   make all-down
    ````
 
-8. Syslog ?  
-   coming soon
-   ````
-   cd ./rbt/server/syslog
-   cp config.sample.json config.json
 
-   modify config file
-
-   npm i  
-   npm run start
-   ````
 ____
 ### RBT CLI
 #### Autoconfig intercom 
