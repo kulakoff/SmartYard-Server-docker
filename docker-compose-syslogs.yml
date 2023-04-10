@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  ## Beward intercom syslog
+  ## RBT intercom syslog
   rbt_syslog:
     container_name: rbt_syslog
     build: 
