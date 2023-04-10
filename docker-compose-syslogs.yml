@@ -13,5 +13,6 @@ services:
       - "${RBT_SYSLOG_PORT_BEWARD}:${RBT_SYSLOG_PORT_BEWARD}/udp" 
       - "${RBT_SYSLOG_PORT_BEWARD_DS}:${RBT_SYSLOG_PORT_BEWARD_DS}/udp" 
       - "${RBT_SYSLOG_PORT_QTECH}:${RBT_SYSLOG_PORT_QTECH}/udp"
+      - "${RBT_SYSLOG_PORT_IS}:${RBT_SYSLOG_PORT_IS}/udp"
       - "${RBT_SYSLOG_PORT_AKUVOX}:${RBT_SYSLOG_PORT_AKUVOX}/udp"   
     command: npm run start
