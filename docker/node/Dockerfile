@@ -1,4 +1,4 @@
-FROM node:18 as main
+FROM node:19 as main
 
 WORKDIR /home/node/app
 

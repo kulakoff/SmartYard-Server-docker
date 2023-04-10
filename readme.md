@@ -50,7 +50,7 @@
 
    ````
 
-7. Syslog ?  
+7. Syslog  
    Edit the file docker-compose-syslogs.yml and specify the required containers to run 
    By default enale only BEWARD syslog service.
 
