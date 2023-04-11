@@ -30,7 +30,7 @@
 
 5. ### Start RBT
     ```
-    make rbt_start
+    sudo make rbt_start
     ```
 
 6. ### Init db, set admin password
@@ -43,7 +43,7 @@
 
 7. ### Stop RBT
     ```
-    make rbt_down
+    sudo make rbt_down
     ```
 
 
