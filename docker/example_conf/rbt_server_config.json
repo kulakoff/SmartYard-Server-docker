@@ -1,0 +1,223 @@
+{
+    "api": {
+        "frontend": "https://127.0.0.2/frontend",
+        "asterisk": "http://127.0.0.1/asterisk",
+        "internal": "http://127.0.0.1/internal",
+        "mobile": "https://127.0.0.2/mobile"
+    },
+
+    "mobile": {
+        "web_server_base_path": "https://127.0.0.2/static",
+        "payments": true,
+        "payments_url": "https://dm.lanta.me/app_static/payments/template.html",
+        "city_cams": false,
+        "support_phone": "+7(4752)429999",
+        "chat": false,
+        "chat_url_disabled": "<!-- your chat url or remove it and use talkMe by default with options below--!>",
+        "talk_me_id_disabled": "<!-- put your talkMe chat id here --!>",
+        "talk_me_domain_disabled": "<!-- put your talkMe chat domain id here --!>",
+        "talk_me_token_disabled": "<!-- put your talkMe chat rest Api Token here --!>",
+        "tt_project": "TDM",
+        "tt_workflow": "mobile",
+        "tt_user": "mobile"
+    },
+
+    "db": {
+        "dsn": "pgsql:host=172.28.0.6;port=5432;dbname=rbt",
+        "username": "rbt",
+        "password": "rbt"
+    },
+
+    "redis": {
+        "host": "172.28.0.4",
+        "port": 6379,
+        "password": "redis_passwd",
+        "cache_ttl": 3600,
+        "max_allowed_tokens": 15,
+        "token_idle_ttl": 3600
+    },
+
+    "backends": {
+        "authentication": {
+            "backend": "internal"
+        },
+
+        "authorization": {
+            "backend": "allow"
+        },
+
+        "accounting": {
+            "backend": "syslog"
+        },
+
+        "users": {
+            "backend": "internal"
+        },
+
+        "geocoder": {
+            "backend": "dadata",
+            "token": "dadata-token",
+            "location is optional, can limit geocoder, see dadata api": "!!! comment, remove this line !!!"
+        },
+
+        "files": {
+            "backend": "mongo",
+            "uri": "mongodb://root:example@172.28.0.5:27017",
+            "db": "rbt"
+        },
+
+        "addresses": {
+            "backend": "internal"
+        },
+
+        "households": {
+            "backend": "internal"
+        },
+
+        "subscribers": {
+            "backend": "internal"
+        },
+
+        "cameras": {
+            "backend": "internal"
+        },
+
+        "isdn": {
+            "backend": "lanta",
+            "flash_call_secret": "request_your_flash_call_secret_in_rbt_teem",
+            "sms_secret": "request_your_sms_secret_in_rbt_teem",
+            "common_secret": "request_your_common_secret_in_rbt_teem",
+            "confirm_method": "outgoingCall"
+        },
+
+        "providers": {
+            "backend": "lanta",
+            "providers.json": "https://isdn.lanta.me/providers.json"
+        },
+
+        "inbox": {
+            "backend": "clickhouse",
+            "username": "default",
+            "password": "qwertyuiop",
+            "host": "172.28.0.7",
+            "port": 8123,
+            "database": "default"
+        },
+
+        "plog": {
+            "backend": "clickhouse",
+            "host": "172.28.0.7",
+            "port": 8123,
+            "username": "default",
+            "password": "qwertyuiop",
+            "database": "default",
+            "time_shift": 60,
+            "max_call_length": 120,
+            "ttl_temp_record": 86400,
+            "ttl_camshot_days": 180,
+            "back_time_shift_video_shot": 3
+        },
+
+        "configs": {
+            "backend": "json"
+        },
+
+        "dvr": {
+            "backend": "internal",
+            "servers": [
+                {
+                    "title": "Local server | nimble",
+                    "type": "nimble",
+                    "url": "https://video.server.hostname:8443",
+                    "management_ip": "127.0.0.1",
+                    "management_port": "8086",
+                    "management_token": "<!-- management token -->"
+                },
+                {
+                    "title": "Local server | flussonic",
+                    "type": "flussonic",
+                    "url": "https:\/\/flussonic_example_server.me",
+                    "token": "fl_token_example"
+                }
+
+            ]
+        },
+
+        "dvr_exports": {
+            "backend": "filesystem",
+            "dvr_files_path": "/path/to/dvr/files/on/your/local/filesystem",
+            "dvr_files_location_prefix": "https://your.server.hostname/path/to/temp/dvr/files/",
+            "dvr_files_ttl": 259200
+        },
+
+        "sip": {
+            "backend": "internal",
+            "servers": [
+                {
+                    "title": "First server | 127.0.0.2",
+                    "type": "asterisk",
+                    "trunk": "first",
+                    "ip": "127.0.0.2",
+                    "sip_tcp_port": 50608,
+                    "sip_udp_port": 50608,
+                    "incoming_title": "Входящий вызов",
+                    "call_failed_title": "Пропущенный вызов"
+                }
+            ],
+            "stuns": [
+                "stun:stun.l.google.com:19302"
+            ]
+        },
+
+        "frs": {
+            "backend": "internal",
+            "open_door_timeout": 10,
+            "cron_sync_data_scheduler": "5min",
+            "servers": [
+                {
+                    "title": "FRS server | 1 example",
+                    "url": "https://127.0.0.1/9cf4509a-912f-4785-abba-ea7e38033e14"
+                },
+                {
+                    "title": "FRS | 2 example",
+                    "url": "https://127.0.0.1/057149ee-020c-4178-baf4-a0fc5f84a2f2"
+                }
+            ]
+        },
+
+        "tt": {"backend": "mongo"}
+    },
+
+    "email": {
+        "server": "127.0.0.1",
+        "port": 587,
+        "username": "noreply@127.0.0.2",
+        "password": "qwerty",
+        "from": "RBT"
+    },
+
+    "syslog_servers": {
+        "beward": [
+            "syslog.udp:127.0.0.2:45450"
+        ],
+        "beward_ds": [
+            "syslog.udp:127.0.0.2:45451"
+        ],
+        "qtech": [
+            "syslog.udp:127.0.0.2:45452"
+        ],
+        "is": [
+            "syslog.udp:127.0.0.2:45453"
+        ],
+        "hikvision": [
+            "syslog.udp:127.0.0.2:45454"
+        ],
+        "akuvox": [
+            "syslog.udp:127.0.0.2:45455"
+        ]
+    },
+
+    "ntp_servers": [
+        "ntp:37.235.148.79:123"
+    ]
+}
