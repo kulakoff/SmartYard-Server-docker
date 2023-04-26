@@ -34,21 +34,8 @@ rbt_copy_configs: ## Copy RBT example configs
 
 ## 	3 Start RBT services
 rbt_start:	## Start RBT services
-	make rbt_containers_up && make rbt_syslog_up
+	docker compose up -d
 
 ## 4 Stop RBT services
 rbt_stop:	## Stop RBT services
-	make rbt_containers_down && make rbt_syslog_down
-
-## Other commands
-rbt_containers_up: ## Start RBT containers
-	docker compose up -d
-
-rbt_containers_down: ##  Stop RBT containers
 	docker compose down
-
-rbt_syslog_up: ## Start RBT Syslog service
-	docker-compose -f docker-compose-syslogs.yml up -d
-
-rbt_syslog_down: ## Stop RBT Syslog service
-	docker-compose -f docker-compose-syslogs.yml down
