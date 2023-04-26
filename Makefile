@@ -3,7 +3,8 @@
 help: ## Help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
 
-rbt_clone_libs: ## Clone_rbt_libs
+## 1 step
+rbt_clone_libs: ## Clone RBT libs
 	# clone rbt
 	git clone --depth=1 https://github.com/rosteleset/rbt.git
 	# download server libs
@@ -19,7 +20,7 @@ rbt_clone_libs: ## Clone_rbt_libs
 	docker run --rm -it -v "$(shell pwd)/rbt/server/mzfc/mongodb:/app" composer/composer require mongodb/mongodb --ignore-platform-reqs
 
 ## 2 step
-rbt_copy_configs: ## Copy rbt example configs
+rbt_copy_configs: ## Copy RBT example configs
 	# create rbt client config
 	cp docker/example_conf/rbt_client_config.json rbt/client/config/config.json
 	# create rbt server config
@@ -28,9 +29,18 @@ rbt_copy_configs: ## Copy rbt example configs
 	cp docker/example_conf/rbt_syslog_config.json rbt/server/syslog/config.json
 	# copy example asterisk config for running
 	cp -R docker/asterisk/conf/* rbt/install/asterisk/
-	# cope default enviroments
+	# cope default environments
 	cp .example.env .env
 
+## 	3 Start RBT services
+rbt_start:	## Start RBT services
+	make rbt_containers_up && make rbt_syslog_up
+
+## 4 Stop RBT services
+rbt_stop:	## Stop RBT services
+	make rbt_containers_down && make rbt_syslog_down
+
+## Other commands
 rbt_containers_up: ## Start RBT containers
 	docker compose up -d
 
@@ -42,10 +52,3 @@ rbt_syslog_up: ## Start RBT Syslog service
 
 rbt_syslog_down: ## Stop RBT Syslog service
 	docker-compose -f docker-compose-syslogs.yml down
-
-## 	RBT demo
-rbt_start:	## Start RBT services
-	make rbt_containers_up && make rbt_syslog_up
-
-rbt_down:	## Stop RBT services
-	make rbt_containers_down && make rbt_syslog_down
