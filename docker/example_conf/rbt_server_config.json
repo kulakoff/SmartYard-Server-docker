@@ -158,8 +158,8 @@
                     "type": "asterisk",
                     "trunk": "first",
                     "ip": "127.0.0.2",
-                    "sip_tcp_port": 50608,
-                    "sip_udp_port": 50608,
+                    "sip_tcp_port": 5060,
+                    "sip_udp_port": 5060,
                     "incoming_title": "Входящий вызов",
                     "call_failed_title": "Пропущенный вызов"
                 }
