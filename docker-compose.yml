@@ -121,6 +121,21 @@ services:
       - "${RBT_SYSLOG_PORT_IS}:${RBT_SYSLOG_PORT_IS}/udp"
       - "${RBT_SYSLOG_PORT_AKUVOX}:${RBT_SYSLOG_PORT_AKUVOX}/udp"
     command: npm run start
+    networks:
+      rbt-app-network:
+        ipv4_address: "${RBT_SYSLOG_NETWORK_ADDRESS}"
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: rbt_mqtt
+    #TODO: add configs
+    #volumes:
+    ports:
+      - 1883:1883
+      - 8081:8081
+    networks:
+      rbt-app-network:
+        ipv4_address: "${RBT_MOSQUITTO_NETWORK_ADDRESS}"
 
 volumes:
   db_postgres:
