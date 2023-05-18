@@ -15,6 +15,7 @@
     "qtech": ["syslog.udp:192.168.13.13:45452"],
     "is": ["syslog.udp:192.168.13.13:45453"],
     "hikvision": ["syslog.udp:192.168.13.13:45454"],
-    "akuvox": ["syslog.udp:127.0.0.1:45455"]
+    "akuvox": ["syslog.udp:127.0.0.1:45455"],
+    "rubetek": ["syslog.udp:127.0.0.1:45456"]
   }
 }
