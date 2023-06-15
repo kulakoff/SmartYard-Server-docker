@@ -39,3 +39,6 @@ rbt_start:	## Start RBT services
 ## 4 Stop RBT services
 rbt_stop:	## Stop RBT services
 	docker compose down
+
+rbt_restart: ## Restart RBT services
+	make rbt_stop && make rbt_start
