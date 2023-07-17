@@ -5,7 +5,7 @@ services:
     image: nginx:latest
     container_name: rbt_nginx
     volumes:
-      - ./SmartYard-Server:/var/www/html                          # RBT dir
+      - ./SmartYard-Server:/var/www/html             # RBT dir
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/    # Nginx config
     ports:
     - "8876:80"                                      # RBT HTTP port
