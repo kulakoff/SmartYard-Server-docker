@@ -5,7 +5,7 @@ services:
     image: nginx:latest
     container_name: rbt_nginx
     volumes:
-      - ./rbt:/var/www/html                          # RBT dir
+      - ./SmartYard-Server:/var/www/html                          # RBT dir
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/    # Nginx config
     ports:
     - "8876:80"                                      # RBT HTTP port
@@ -26,7 +26,7 @@ services:
       context: .
       dockerfile: docker/app/Dockerfile
     volumes:
-      - ./rbt/:/var/www/html
+      - ./SmartYard-Server/:/var/www/html
       - rbt_app:/var/spool/cron/crontabs
     depends_on:
       - redis  
@@ -96,7 +96,7 @@ services:
       context: .
       dockerfile: docker/asterisk/Dockerfile
     volumes:
-      - ./rbt/install/asterisk:/etc/asterisk
+      - ./SmartYard-Server/install/asterisk:/etc/asterisk
     depends_on:
       - nginx
     network_mode: host
@@ -111,7 +111,7 @@ services:
       context: .
       dockerfile: docker/node/Dockerfile
     volumes:
-      - ./rbt/server/syslog:/home/node/app
+      - ./SmartYard-Server/server/syslog:/home/node/app
     depends_on:
       - nginx
     ports:

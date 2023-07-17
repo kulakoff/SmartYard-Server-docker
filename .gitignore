@@ -1,7 +1,9 @@
 .idea
 .env
 docker/syslog
+#deprecated dir /rbt
 /rbt
+/SmartYard-Server
 
 #tests
 /rbt-asterisk
