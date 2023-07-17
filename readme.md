@@ -1,7 +1,7 @@
 #### Only test, not for production!
 1. ### Clone repos
     ```
-    make rbt_clone_libs
+    make sys_clone_libs
     ```
 
 2. ### Edit config files
@@ -16,21 +16,21 @@
 3. ### Make your SSL certificate
     Make ssl for NGINX and copy to dir docker/nginx/certs:  
     use [acme.sh](https://github.com/acmesh-official/acme.sh)
-    copy do this dir or uise default or use self-signed SSL:
+    copy do this dir or use default or use self-signed SSL:
    ````
    docker/nginx/conf.d/certs/nginx.key
    docker/nginx/conf.d/certs/nginx.crt
    ````
 
-4. #### Copy configs to rbt project
+4. #### Copy configs to SmartYard-Server project
     copy server, client and asterisk configs
     ```
-    make rbt_copy_configs
+    make sys_copy_configs
     ```
 
-5. ### Start RBT
+5. ### Start SmartYard-Server
     ```
-    sudo make rbt_start
+    sudo make sys_start
     ```
 
 6. ### Init db, set admin password
@@ -41,9 +41,9 @@
     docker exec -it rbt_app php server/cli.php --install-crontabs
     ````
 
-7. ### Stop RBT
+7. ### Stop SmartYard-Server
     ```
-    sudo make rbt_down
+    sudo make sys_down
     ```
 
 
