@@ -6,7 +6,8 @@ help: ## Help
 ## 1 step
 sys_clone_libs: ## Clone SmartYard-Server libs
 	# clone rbt
-	git clone --depth=1 https://github.com/rosteleset/rbt.git
+	#git clone --depth=1 https://github.com/rosteleset/SmartYard-Server.git
+	git clone https://github.com/rosteleset/SmartYard-Server.git
 	# download server libs
 	git clone --depth=1 https://github.com/PHPMailer/PHPMailer SmartYard-Server/server/lib/PHPMailer
 	git clone --depth=1 https://github.com/ezyang/htmlpurifier SmartYard-Server/server/lib/htmlpurifier

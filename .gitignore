@@ -6,6 +6,7 @@ docker/syslog
 /SmartYard-Server
 
 #tests
+/tmp
 /rbt-asterisk
 /rbt-asterisk_
 /docker/rtpengine/
