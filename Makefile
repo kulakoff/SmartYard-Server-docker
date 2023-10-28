@@ -5,7 +5,7 @@ help: ## Help
 
 ## 1 step
 sys_clone_libs: ## Clone SmartYard-Server libs
-	# clone rbt
+	# clone SmartYard-Server
 	#git clone --depth=1 https://github.com/rosteleset/SmartYard-Server.git
 	git clone https://github.com/rosteleset/SmartYard-Server.git
 	# download server libs
