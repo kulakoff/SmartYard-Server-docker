@@ -9,7 +9,7 @@ services:
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/    # Nginx config
     ports:
     - "8876:80"                                      # RBT HTTP port
-    - "443:9091"                                     # RBT HTTPS port
+    - "443:443"                                     # RBT HTTPS port
     depends_on:
       - app
       - redis
