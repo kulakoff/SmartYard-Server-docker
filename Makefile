@@ -23,7 +23,7 @@ sys_clone_libs: ## Clone SmartYard-Server libs
 ## 2 step
 sys_copy_configs: ## Copy SmartYard-Server example configs
 	# create SmartYard-Server client config
-	cp docker/example_conf/rbt_client_config.json SmartYard-Server/client/config/config.json
+	cp docker/example_conf/SmartYard-Server_client_config.json SmartYard-Server/client/config/config.json
 	# create SmartYard-Server server config
 	cp docker/example_conf/SmartYard-Server_server_config.json SmartYard-Server/server/config/config.json
 	# create SmartYard-Server syslog
