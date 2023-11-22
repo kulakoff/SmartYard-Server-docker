@@ -1,0 +1,13 @@
+[rtpengine]
+interface=172.28.0.10
+foreground=true
+log-stderr=true
+listen-ng=172.28.0.10:22222
+port-min=23000
+port-max=32768
+recording-dir=/tmp
+recording-method=pcap
+recording-format=eth
+log-level=6
+delete-delay=0
+listen-http=172.28.0.10:8080
