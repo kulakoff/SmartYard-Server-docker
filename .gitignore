@@ -5,6 +5,10 @@ docker/syslogi
 # rtpengine user config
 docker/rtpengine/rtpengine.conf
 
+# kamailio user config
+docker/kamailio/kamctlrc
+docker/kamailio/kamailio-local.cfg
+
 #deprecated dir /SmartYard-Server
 /rbt
 /SmartYard-Server
