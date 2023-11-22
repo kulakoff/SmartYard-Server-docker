@@ -1,19 +1,18 @@
-SIP_DOMAIN=umbrella.lanta.me
+SIP_DOMAIN=192.168.88.25
 
 DBENGINE=PGSQL
 DBHOST=172.28.0.6
 DBPORT=5432
 DBNAME=kamailio
 
+# read-write user
 DBRWUSER="kamailio"
 DBRWPW="kamailio"
-#DBRWUSER="root"
-#DBRWPW="toor"
 
+# Read user
 DBROUSER="kamailioro"
 DBROPW="kamailioro"
-#DBROUSER="root"
-#DBROPW="toor"
 
-DBROOTUSER="root"
-DBROOTPW="toor"
+# admin db user
+DBROOTUSER="rbt"
+DBROOTPW="rbt"

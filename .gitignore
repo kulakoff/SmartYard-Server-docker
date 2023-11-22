@@ -1,6 +1,10 @@
 .idea
 .env
-docker/syslog
+docker/syslogi
+
+# rtpengine user config
+docker/rtpengine/rtpengine.conf
+
 #deprecated dir /SmartYard-Server
 /rbt
 /SmartYard-Server
