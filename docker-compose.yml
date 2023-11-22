@@ -100,10 +100,6 @@ services:
     depends_on:
       - nginx
     network_mode: host
-    ## SIP UDP port 5060
-    ## SIP TCP port 5060
-    ## WS port 8088
-    ## RTP ports 10000-20000
 
   syslog:
     container_name: rbt_syslog
