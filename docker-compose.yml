@@ -12,10 +12,6 @@ services:
     - "443:443"                                       # RBT HTTPS port
     depends_on:
       - app
-      - redis
-      - clickhouse_server
-      - postgres
-      - mongo
     networks:
       rbt-app-network:
         ipv4_address: "${RBT_NGINX_NETWORK_ADDRESS}"
@@ -29,10 +25,14 @@ services:
       - ./SmartYard-Server/:/var/www/html
       - rbt_app:/var/spool/cron/crontabs
     depends_on:
-      - redis  
+      - redis
+      - clickhouse_server
+      - postgres
+      - mongo
     networks:
       rbt-app-network:
         ipv4_address: "${RBT_APP_NETWORK_ADDRESS}"
+
 
   redis:
     container_name: rbt_db_redis
