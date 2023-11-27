@@ -33,7 +33,6 @@ services:
       rbt-app-network:
         ipv4_address: "${RBT_APP_NETWORK_ADDRESS}"
 
-
   redis:
     container_name: rbt_db_redis
     image: redis:7-alpine
@@ -140,8 +139,9 @@ services:
       dockerfile: docker/kamailio/Dockerfile
     network_mode: host
     volumes:
-      - ./docker/kamailio:/etc/kamailio
+      - ./SmartYard-Server/install/kamailio/:/etc/kamailio
     depends_on:
+      - app
       - rtpengine
 
   rtpengine:
@@ -149,7 +149,7 @@ services:
     image: fonoster/rtpengine:latest
     network_mode: host
     volumes:
-      - ./docker/rtpengine/rtpengine.conf:/etc/rtpengine/rtpengine.conf
+      - ./SmartYard-Server/install/rtpengine/rtpengine.conf:/etc/rtpengine/rtpengine.conf
     command: rtpengine --config-file=/etc/rtpengine/rtpengine.conf --foreground
 
 volumes:
