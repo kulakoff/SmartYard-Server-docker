@@ -13,10 +13,14 @@ sys_clone_libs: ## Clone SmartYard-Server libs
 	git clone --depth=1 https://github.com/ezyang/htmlpurifier SmartYard-Server/server/lib/htmlpurifier
 	git clone -b 1.7.x --depth=1 https://github.com/erusev/parsedown SmartYard-Server/server/lib/parsedown
 	# download client libs
-	git clone --depth=1 https://github.com/ColorlibHQ/AdminLTE SmartYard-Server/client/lib/AdminLTE
+	git clone --branch v3.2.0 --depth=1 https://github.com/ColorlibHQ/AdminLTE SmartYard-Server/client/lib/AdminLTE
 	git clone --depth=1 https://github.com/davidshimjs/qrcodejs SmartYard-Server/client/lib/qrcodejs
 	git clone --depth=1 https://github.com/loadingio/loading-bar SmartYard-Server/client/lib/loading-bar
 	git clone --depth=1 https://github.com/ajaxorg/ace-builds SmartYard-Server/client/lib/ace-builds
+	git clone --depth=1 https://github.com/Leaflet/Leaflet SmartYard-Server/client/lib/Leaflet
+	npm --prefix SmartYard-Server/client/lib/Leaflet/ install
+	npm --prefix SmartYard-Server/client/lib/Leaflet run build
+
 	# install mzfc libs
 	docker run --rm -it -v "$(shell pwd)/SmartYard-Server/server/mzfc/mongodb:/app" composer/composer require mongodb/mongodb --ignore-platform-reqs
 
