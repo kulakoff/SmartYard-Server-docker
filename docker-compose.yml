@@ -144,6 +144,18 @@ services:
       - app
       - rtpengine
 
+  kamailio_dev:
+    container_name: rbt_kamailio_dev
+    build:
+      context: .
+      dockerfile: docker/kamailio/Dockerfile
+    network_mode: host
+    volumes:
+      - ./docker/kamailio/dev/v2/:/etc/kamailio
+    depends_on:
+      - app
+      - rtpengine
+
   rtpengine:
     container_name: rbt_rtpengine
     image: fonoster/rtpengine:latest
