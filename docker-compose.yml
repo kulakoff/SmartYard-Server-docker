@@ -1,15 +1,15 @@
 version: '3.8'
 
 services:
-  nginx: 
+  nginx:
     image: nginx:latest
     container_name: rbt_nginx
     volumes:
       - ./SmartYard-Server:/var/www/html              # RBT dir
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/     # Nginx config
     ports:
-    - "8876:80"                                       # RBT HTTP port
-    - "443:443"                                       # RBT HTTPS port
+      - "8876:80"                                       # RBT HTTP port
+      - "443:443"                                       # RBT HTTPS port
     depends_on:
       - app
     networks:
@@ -61,9 +61,10 @@ services:
     container_name: rbt_db_postgres
     image: postgres:15.1
     environment:
-      POSTGRES_DB: "rbt"
-      POSTGRES_USER: "rbt"
-      POSTGRES_PASSWORD: "rbt"
+      POSTGRES_DB: "${RBT_POSTGRES_DB}"
+      POSTGRES_USER: "${RBT_POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432"
     volumes:
@@ -76,10 +77,10 @@ services:
     container_name: rbt_db_clickhouse
     image: clickhouse/clickhouse-server
     ports:
-     - "8123"
-     - "9004"
+      - "8123"
+      - "9004"
     volumes:
-     - db_clickhouse:/var/lib/clickhouse
+      - db_clickhouse:/var/lib/clickhouse
     environment:
       CLICKHOUSE_DB: "${RBT_CLICKHOUSE_DB}"
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
