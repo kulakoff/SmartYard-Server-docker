@@ -152,7 +152,7 @@ services:
       dockerfile: docker/kamailio/Dockerfile
     network_mode: host
     volumes:
-      - ./docker/kamailio/dev/v2/:/etc/kamailio
+      - ./docker/kamailio/dev/v4/:/etc/kamailio
     depends_on:
       - app
       - rtpengine
