@@ -107,7 +107,7 @@ services:
       context: .
       dockerfile: docker/node/Dockerfile
     volumes:
-      - ./SmartYard-Server/server/syslog:/home/node/app
+      - ./SmartYard-Server/server/service/syslog:/home/node/app
     depends_on:
       - nginx
     ports:
