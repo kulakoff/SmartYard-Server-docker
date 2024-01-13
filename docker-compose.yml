@@ -149,7 +149,7 @@ services:
     container_name: rbt_kamailio_dev
     build:
       context: .
-      dockerfile: docker/kamailio/Dockerfile
+      dockerfile: docker/kamailio/Dockerfile_dev
     network_mode: host
     volumes:
       - ./docker/kamailio/dev/v4/:/etc/kamailio
