@@ -8,8 +8,8 @@ services:
       - ./SmartYard-Server:/var/www/html              # RBT dir
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/     # Nginx config
     ports:
-      - "8876:80"                                       # RBT HTTP port
-      - "443:443"                                       # RBT HTTPS port
+      - "${RBT_NGINX_PORT_WEB}:80"                    # RBT HTTP port
+      - "${RBT_NGINX_PORT_SSL}:443"                   # RBT HTTPS port
     depends_on:
       - app
     networks:
@@ -38,7 +38,7 @@ services:
     image: redis:7-alpine
     command: ["sh", "-c", "exec redis-server --requirepass \"${RBT_REDIS_PASSWORD}\""]
     ports:
-      - "6379"
+      - "${RBT_REDIS_PORT}"
     networks:
       rbt-app-network:
         ipv4_address: "${RBT_REDIS_NETWORK_ADDRESS}"
@@ -47,7 +47,7 @@ services:
     container_name: rbt_db_mongo
     image: mongo:latest
     ports:
-      - "27017"
+      - "${RBT_MONGO_PORT}"
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${RBT_MONGO_USERNAME}"
       MONGO_INITDB_ROOT_PASSWORD: "${RBT_MONGO_PASSWORD}"
@@ -66,7 +66,7 @@ services:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
-      - "5432"
+      - "${RBT_POSTGRES_PORT}"
     volumes:
       - db_postgres:/var/lib/postgresql/data
     networks:
@@ -127,8 +127,8 @@ services:
     #TODO: add configs
     #volumes:
     ports:
-      - 1883:1883
-      - 8081:8081
+      - "${RBT_MOSQUITTO_PORT}:1883"
+      - "${RBT_MOSQUITTO_PORT_WS}:8081"
     networks:
       rbt-app-network:
         ipv4_address: "${RBT_MOSQUITTO_NETWORK_ADDRESS}"
