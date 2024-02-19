@@ -1,0 +1,15 @@
+FROM node:18 as main
+
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+
+WORKDIR /home/node/app
+
+COPY ./SmartYard-Server/server/services/event/package*.json /home/node/app
+
+USER node
+
+RUN npm install
+
+COPY --chown=node:node ./SmartYard-Server/server/services/event .
+
+#CMD [ "node", "app.js" ]

@@ -63,7 +63,7 @@ services:
     environment:
       POSTGRES_DB: "${RBT_POSTGRES_DB}"
       POSTGRES_USER: "${RBT_POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_PASSWORD: "${RBT_POSTGRES_PASSWORD}"
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "${RBT_POSTGRES_PORT}"
@@ -120,6 +120,26 @@ services:
     networks:
       rbt-app-network:
         ipv4_address: "${RBT_SYSLOG_NETWORK_ADDRESS}"
+
+#  event:
+#    container_name: rbt_event
+#    build:
+#      context: .
+#      dockerfile: docker/node/Dockerfile_event
+#    volumes:
+#      - ./SmartYard-Server/server/services/event/:/home/node/app
+#    depends_on:
+#      - nginx
+#    ports:
+#      - "${RBT_EVENT_PORT_BEWARD}:${RBT_EVENT_PORT_BEWARD}/udp"
+#    #      - "${RBT_SYSLOG_PORT_BEWARD_DS}:${RBT_SYSLOG_PORT_BEWARD_DS}/udp"
+#    #      - "${RBT_SYSLOG_PORT_QTECH}:${RBT_SYSLOG_PORT_QTECH}/udp"
+#    #      - "${RBT_SYSLOG_PORT_IS}:${RBT_SYSLOG_PORT_IS}/udp"
+#    #      - "${RBT_SYSLOG_PORT_AKUVOX}:${RBT_SYSLOG_PORT_AKUVOX}/udp"
+#    command: npm run start
+#    networks:
+#      rbt-app-network:
+#        ipv4_address: "${RBT_EVENT_NETWORK_ADDRESS}"
 
   mosquitto:
     image: eclipse-mosquitto
