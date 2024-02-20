@@ -101,45 +101,50 @@ services:
       - nginx
     network_mode: host
 
-  syslog:
-    container_name: rbt_syslog
-    build:
-      context: .
-      dockerfile: docker/node/Dockerfile
-    volumes:
-      - ./SmartYard-Server/server/service/syslog:/home/node/app
-    depends_on:
-      - nginx
-    ports:
-      - "${RBT_SYSLOG_PORT_BEWARD}:${RBT_SYSLOG_PORT_BEWARD}/udp"
-      - "${RBT_SYSLOG_PORT_BEWARD_DS}:${RBT_SYSLOG_PORT_BEWARD_DS}/udp"
-      - "${RBT_SYSLOG_PORT_QTECH}:${RBT_SYSLOG_PORT_QTECH}/udp"
-      - "${RBT_SYSLOG_PORT_IS}:${RBT_SYSLOG_PORT_IS}/udp"
-      - "${RBT_SYSLOG_PORT_AKUVOX}:${RBT_SYSLOG_PORT_AKUVOX}/udp"
-    command: npm run start
-    networks:
-      rbt-app-network:
-        ipv4_address: "${RBT_SYSLOG_NETWORK_ADDRESS}"
-
-#  event:
-#    container_name: rbt_event
+#  event_legacy:
+#    container_name: rbt_event_legacy
 #    build:
 #      context: .
-#      dockerfile: docker/node/Dockerfile_event
+#      dockerfile: docker/node/Dockerfile
+#      target: event_legacy
 #    volumes:
-#      - ./SmartYard-Server/server/services/event/:/home/node/app
+#      - ./SmartYard-Server/server/services/syslog/config.json:/home/node/app/config.json
 #    depends_on:
 #      - nginx
+#      - clickhouse_server
 #    ports:
-#      - "${RBT_EVENT_PORT_BEWARD}:${RBT_EVENT_PORT_BEWARD}/udp"
-#    #      - "${RBT_SYSLOG_PORT_BEWARD_DS}:${RBT_SYSLOG_PORT_BEWARD_DS}/udp"
-#    #      - "${RBT_SYSLOG_PORT_QTECH}:${RBT_SYSLOG_PORT_QTECH}/udp"
-#    #      - "${RBT_SYSLOG_PORT_IS}:${RBT_SYSLOG_PORT_IS}/udp"
-#    #      - "${RBT_SYSLOG_PORT_AKUVOX}:${RBT_SYSLOG_PORT_AKUVOX}/udp"
+#      - "${RBT_EVENT_SERVER_PORT_BEWARD}:${RBT_EVENT_SERVER_PORT_BEWARD}/udp"
+#      - "${RBT_EVENT_SERVER_PORT_BEWARD_DS}:${RBT_EVENT_SERVER_PORT_BEWARD_DS}/udp"
+#      - "${RBT_EVENT_SERVER_PORT_QTECH}:${RBT_EVENT_SERVER_PORT_QTECH}/udp"
+#      - "${RBT_EVENT_SERVER_PORT_IS}:${RBT_EVENT_SERVER_PORT_IS}/udp"
+#      - "${RBT_EVENT_SERVER_PORT_AKUVOX}:${RBT_EVENT_SERVER_PORT_AKUVOX}/udp"
+#      - "${RBT_EVENT_SERVER_PORT_SPUTNIK_CLOUD}:${RBT_EVENT_SERVER_PORT_SPUTNIK_CLOUD}/udp"
 #    command: npm run start
 #    networks:
 #      rbt-app-network:
-#        ipv4_address: "${RBT_EVENT_NETWORK_ADDRESS}"
+#        ipv4_address: "${RBT_EVENT_SERVER_NETWORK_ADDRESS}"
+
+  event:
+    container_name: rbt_event
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+      target: event_main
+    volumes:
+      - ./SmartYard-Server/server/services/event/config.json:/home/node/app/config.json
+    depends_on:
+      - nginx
+    ports:
+      - "${RBT_EVENT_SERVER_PORT_BEWARD}:${RBT_EVENT_SERVER_PORT_BEWARD}/udp"
+      - "${RBT_EVENT_SERVER_PORT_BEWARD_DS}:${RBT_EVENT_SERVER_PORT_BEWARD_DS}/udp"
+      - "${RBT_EVENT_SERVER_PORT_QTECH}:${RBT_EVENT_SERVER_PORT_QTECH}/udp"
+      - "${RBT_EVENT_SERVER_PORT_IS}:${RBT_EVENT_SERVER_PORT_IS}/udp"
+      - "${RBT_EVENT_SERVER_PORT_AKUVOX}:${RBT_EVENT_SERVER_PORT_AKUVOX}/udp"
+      - "${RBT_EVENT_SERVER_PORT_SPUTNIK_CLOUD}:${RBT_EVENT_SERVER_PORT_SPUTNIK_CLOUD}/udp"
+    command: npm run start
+    networks:
+      rbt-app-network:
+        ipv4_address: "${RBT_EVENT_SERVER_NETWORK_ADDRESS}"
 
   mosquitto:
     image: eclipse-mosquitto
@@ -153,37 +158,37 @@ services:
       rbt-app-network:
         ipv4_address: "${RBT_MOSQUITTO_NETWORK_ADDRESS}"
 
-  kamailio:
-    container_name: rbt_kamailio
-    build:
-      context: .
-      dockerfile: docker/kamailio/Dockerfile
-    network_mode: host
-    volumes:
-      - ./SmartYard-Server/install/kamailio/:/etc/kamailio
-    depends_on:
-      - app
-      - rtpengine
-
-  kamailio_dev:
-    container_name: rbt_kamailio_dev
-    build:
-      context: .
-      dockerfile: docker/kamailio/Dockerfile_dev
-    network_mode: host
-    volumes:
-      - ./docker/kamailio/dev/v4/:/etc/kamailio
-    depends_on:
-      - app
-      - rtpengine
-
-  rtpengine:
-    container_name: rbt_rtpengine
-    image: fonoster/rtpengine:latest
-    network_mode: host
-    volumes:
-      - ./SmartYard-Server/install/rtpengine/rtpengine.conf:/etc/rtpengine/rtpengine.conf
-    command: rtpengine --config-file=/etc/rtpengine/rtpengine.conf --foreground
+#  kamailio:
+#    container_name: rbt_kamailio
+#    build:
+#      context: .
+#      dockerfile: docker/kamailio/Dockerfile
+#    network_mode: host
+#    volumes:
+#      - ./SmartYard-Server/install/kamailio/:/etc/kamailio
+#    depends_on:
+#      - app
+#      - rtpengine
+#
+#  kamailio_dev:
+#    container_name: rbt_kamailio_dev
+#    build:
+#      context: .
+#      dockerfile: docker/kamailio/Dockerfile_dev
+#    network_mode: host
+#    volumes:
+#      - ./docker/kamailio/dev/v4/:/etc/kamailio
+#    depends_on:
+#      - app
+#      - rtpengine
+#
+#  rtpengine:
+#    container_name: rbt_rtpengine
+#    image: fonoster/rtpengine:latest
+#    network_mode: host
+#    volumes:
+#      - ./SmartYard-Server/install/rtpengine/rtpengine.conf:/etc/rtpengine/rtpengine.conf
+#    command: rtpengine --config-file=/etc/rtpengine/rtpengine.conf --foreground
 
 volumes:
   db_postgres:
