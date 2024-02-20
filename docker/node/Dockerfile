@@ -1,4 +1,4 @@
-# syslog server
+# syslog server legacy version
 FROM node:18 as event_legacy
 ENV TZ Europe/Moscow
 ENV NODE_PATH /home/node/app/node_modules
