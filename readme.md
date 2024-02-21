@@ -37,6 +37,7 @@
 6. ### Init db, set admin password
     ````
     docker exec -it rbt_app php server/cli.php --init-db
+    docker exec -it rbt_app php server/cli.php --init-clickhouse-db
     docker exec -it rbt_app php server/cli.php --admin-password=<your very secret admin password>
     docker exec -it rbt_app php server/cli.php --reindex
     docker exec -it rbt_app php server/cli.php --install-crontabs
