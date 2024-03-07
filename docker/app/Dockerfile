@@ -16,7 +16,10 @@ RUN apt-get update && apt-get install -y \
     telnet \
     cron \
     vim \
-    git
+    git \
+    postgresql-client \
+    postgresql-client-common \
+    libpq-dev
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
