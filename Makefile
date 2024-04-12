@@ -37,6 +37,14 @@ sys_copy_configs: ## Copy SmartYard-Server example configs
 	# cope default environments
 	cp .example.env .env
 
+sys_init_config: ##  SmartYard-Server initial config
+	# init db
+	docker exec -it rbt_app php server/cli.php --init-db
+	# Init clichouse
+	docker exec -it rbt_app php server/cli.php --init-clickhouse-db
+	# Init crontab
+	docker exec -it rbt_app php server/cli.php --install-crontabs
+
 ## 	3 Start SmartYard-Server services
 sys_start:	## Start RBT services
 	docker compose up -d
