@@ -13,7 +13,7 @@ services:
     depends_on:
       - app
     networks:
-      rbt-app-network:
+      default:
         ipv4_address: "${RBT_NGINX_NETWORK_ADDRESS}"
 
   app:
@@ -30,7 +30,7 @@ services:
       - postgres
       - mongo
     networks:
-      rbt-app-network:
+      default:
         ipv4_address: "${RBT_APP_NETWORK_ADDRESS}"
 
   redis:
@@ -40,7 +40,7 @@ services:
     ports:
       - "${RBT_REDIS_PORT}"
     networks:
-      rbt-app-network:
+      default:
         ipv4_address: "${RBT_REDIS_NETWORK_ADDRESS}"
 
   mongo:
@@ -54,7 +54,7 @@ services:
     volumes:
       - db_mongodb:/data/db
     networks:
-      rbt-app-network:
+      default:
         ipv4_address: "${RBT_MONGO_NETWORK_ADDRESS}"
 
   postgres:
@@ -70,7 +70,7 @@ services:
     volumes:
       - db_postgres:/var/lib/postgresql/data
     networks:
-      rbt-app-network:
+      default:
         ipv4_address: "${RBT_POSTGRESS_NETWORK_ADDRESS}"
 
   clickhouse_server:
@@ -87,7 +87,7 @@ services:
       CLICKHOUSE_USER: "${RBT_CLICKHOUSE_USER}"
       CLICKHOUSE_PASSWORD: "${RBT_CLICKHOUSE_PASSWORD}"
     networks:
-      rbt-app-network:
+      default:
         ipv4_address: "${RBT_CLICKHOUSE_NETWORK_ADDRESS}"
 
   asterisk:
@@ -120,8 +120,27 @@ services:
       - "${RBT_EVENT_SERVER_PORT_SPUTNIK_CLOUD}:${RBT_EVENT_SERVER_PORT_SPUTNIK_CLOUD}/udp"
     command: npm run start
     networks:
-      rbt-app-network:
+      default:
         ipv4_address: "${RBT_EVENT_SERVER_NETWORK_ADDRESS}"
+
+  push:
+    container_name: rbt_push
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+      target: push_main
+    volumes:
+      - ./SmartYard-Server/server/services/push/assets/:/home/node/app/assets/
+      - ./SmartYard-Server/server/services/push/.env:/home/node/app/.env
+    depends_on:
+      - nginx
+    ports:
+      - "${RBT_PUSH_SERVICE_PORT}:${RBT_PUSH_SERVICE_PORT}/tcp"
+    command: npm run start
+    networks:
+      default:
+        ipv4_address: "${RBT_PUSH_SERVICE_NETWORK_ADDRESS}"
+
 
   mosquitto:
     image: eclipse-mosquitto
@@ -132,7 +151,7 @@ services:
       - "${RBT_MOSQUITTO_PORT}:1883"
       - "${RBT_MOSQUITTO_PORT_WS}:8081"
     networks:
-      rbt-app-network:
+      default:
         ipv4_address: "${RBT_MOSQUITTO_NETWORK_ADDRESS}"
 
   kamailio:
@@ -174,7 +193,8 @@ volumes:
   rbt_app:
 
 networks:
-  rbt-app-network:
+  default:
+    name: rbt_stack
     driver: bridge
     ipam:
       driver: default
