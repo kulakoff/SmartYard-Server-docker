@@ -101,29 +101,6 @@ services:
       - nginx
     network_mode: host
 
-#  event_legacy:
-#    container_name: rbt_event_legacy
-#    build:
-#      context: .
-#      dockerfile: docker/node/Dockerfile
-#      target: event_legacy
-#    volumes:
-#      - ./SmartYard-Server/server/services/syslog/config.json:/home/node/app/config.json
-#    depends_on:
-#      - nginx
-#      - clickhouse_server
-#    ports:
-#      - "${RBT_EVENT_SERVER_PORT_BEWARD}:${RBT_EVENT_SERVER_PORT_BEWARD}/udp"
-#      - "${RBT_EVENT_SERVER_PORT_BEWARD_DS}:${RBT_EVENT_SERVER_PORT_BEWARD_DS}/udp"
-#      - "${RBT_EVENT_SERVER_PORT_QTECH}:${RBT_EVENT_SERVER_PORT_QTECH}/udp"
-#      - "${RBT_EVENT_SERVER_PORT_IS}:${RBT_EVENT_SERVER_PORT_IS}/udp"
-#      - "${RBT_EVENT_SERVER_PORT_AKUVOX}:${RBT_EVENT_SERVER_PORT_AKUVOX}/udp"
-#      - "${RBT_EVENT_SERVER_PORT_SPUTNIK_CLOUD}:${RBT_EVENT_SERVER_PORT_SPUTNIK_CLOUD}/udp"
-#    command: npm run start
-#    networks:
-#      rbt-app-network:
-#        ipv4_address: "${RBT_EVENT_SERVER_NETWORK_ADDRESS}"
-
   event:
     container_name: rbt_event
     build:
