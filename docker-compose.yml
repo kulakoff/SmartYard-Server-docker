@@ -3,7 +3,7 @@ version: '3.8'
 services:
   nginx:
     image: nginx:latest
-    container_name: rbt_nginx
+    container_name: "rbt_nginx_${RBT_INSTANCE}"
     volumes:
       - ./SmartYard-Server:/var/www/html              # RBT dir
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/     # Nginx config
@@ -17,7 +17,7 @@ services:
         ipv4_address: "${RBT_NGINX_NETWORK_ADDRESS}"
 
   app:
-    container_name: rbt_app
+    container_name: "rbt_app_${RBT_INSTANCE}"
     build:
       context: .
       dockerfile: docker/app/Dockerfile
@@ -34,7 +34,7 @@ services:
         ipv4_address: "${RBT_APP_NETWORK_ADDRESS}"
 
   redis:
-    container_name: rbt_db_redis
+    container_name: "rbt_db_redis_${RBT_INSTANCE}"
     image: redis:7-alpine
     command: ["sh", "-c", "exec redis-server --requirepass \"${RBT_REDIS_PASSWORD}\""]
     ports:
@@ -44,7 +44,7 @@ services:
         ipv4_address: "${RBT_REDIS_NETWORK_ADDRESS}"
 
   mongo:
-    container_name: rbt_db_mongo
+    container_name: "rbt_db_mongo_${RBT_INSTANCE}"
     image: mongo:latest
     ports:
       - "${RBT_MONGO_PORT}"
@@ -58,8 +58,8 @@ services:
         ipv4_address: "${RBT_MONGO_NETWORK_ADDRESS}"
 
   postgres:
-    container_name: rbt_db_postgres
-    image: postgres:15.1
+    container_name: "rbt_db_postgres_${RBT_INSTANCE}"
+    image: postgres:16-alpine
     environment:
       POSTGRES_DB: "${RBT_POSTGRES_DB}"
       POSTGRES_USER: "${RBT_POSTGRES_USER}"
@@ -74,7 +74,7 @@ services:
         ipv4_address: "${RBT_POSTGRESS_NETWORK_ADDRESS}"
 
   clickhouse_server:
-    container_name: rbt_db_clickhouse
+    container_name: "rbt_db_clickhouse_${RBT_INSTANCE}"
     image: clickhouse/clickhouse-server
     ports:
       - "8123"
@@ -91,7 +91,7 @@ services:
         ipv4_address: "${RBT_CLICKHOUSE_NETWORK_ADDRESS}"
 
   asterisk:
-    container_name: rbt_asterisk
+    container_name: "rbt_asterisk_${RBT_INSTANCE}"
     build:
       context: .
       dockerfile: docker/asterisk/Dockerfile
@@ -102,7 +102,7 @@ services:
     network_mode: host
 
   event:
-    container_name: rbt_event
+    container_name: "rbt_event_${RBT_INSTANCE}"
     build:
       context: .
       dockerfile: docker/node/Dockerfile
@@ -124,7 +124,7 @@ services:
         ipv4_address: "${RBT_EVENT_SERVER_NETWORK_ADDRESS}"
 
   push:
-    container_name: rbt_push
+    container_name: "rbt_push_${RBT_INSTANCE}"
     build:
       context: .
       dockerfile: docker/node/Dockerfile
@@ -141,10 +141,9 @@ services:
       default:
         ipv4_address: "${RBT_PUSH_SERVICE_NETWORK_ADDRESS}"
 
-
   mosquitto:
     image: eclipse-mosquitto
-    container_name: rbt_mqtt
+    container_name: "rbt_mqtt_${RBT_INSTANCE}"
     #TODO: add configs
     #volumes:
     ports:
@@ -155,7 +154,7 @@ services:
         ipv4_address: "${RBT_MOSQUITTO_NETWORK_ADDRESS}"
 
   kamailio:
-    container_name: rbt_kamailio
+    container_name: "rbt_kamailio_${RBT_INSTANCE}"
     build:
       context: .
       dockerfile: docker/kamailio/Dockerfile
@@ -167,7 +166,7 @@ services:
       - rtpengine
 
   kamailio_dev:
-    container_name: rbt_kamailio_dev
+    container_name: "rbt_kamailio_dev_${RBT_INSTANCE}"
     build:
       context: .
       dockerfile: docker/kamailio/Dockerfile_dev
@@ -179,7 +178,7 @@ services:
       - rtpengine
 
   rtpengine:
-    container_name: rbt_rtpengine
+    container_name: "rbt_rtpengine_${RBT_INSTANCE}"
     image: fonoster/rtpengine:latest
     network_mode: host
     volumes:
@@ -194,7 +193,7 @@ volumes:
 
 networks:
   default:
-    name: rbt_stack
+    name: "rbt_stack_${RBT_INSTANCE}"
     driver: bridge
     ipam:
       driver: default
