@@ -96,7 +96,7 @@ services:
       context: .
       dockerfile: docker/asterisk/Dockerfile
     volumes:
-      - ./SmartYard-Server/install/asterisk:/etc/asterisk
+      - ./SmartYard-Server/asterisk:/etc/asterisk
     depends_on:
       - nginx
     network_mode: host
