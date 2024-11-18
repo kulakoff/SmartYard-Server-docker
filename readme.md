@@ -47,5 +47,3 @@
     ```
     sudo make sys_down
     ```
-
-
