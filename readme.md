@@ -11,7 +11,7 @@
     - server config: docker/example_conf/rbt_server_config.json
 
     ```
-    sed -i 's/127.0.0.2/rbt-domain.com/g' docker/example_conf/rbt_*.json
+    sed -i 's/127.0.0.2/rbt-domain.com/g' docker/example_conf/SmartYard-Server_*.json
     ```
 
 3. ### Make your SSL certificate
