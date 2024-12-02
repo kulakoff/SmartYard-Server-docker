@@ -31,9 +31,9 @@ sys_copy_configs: ## Copy SmartYard-Server example configs
 	# create SmartYard-Server server config
 	cp docker/example_conf/SmartYard-Server_server_config.json SmartYard-Server/server/config/config.json
 	# create SmartYard-Server syslog
-	cp docker/example_conf/SmartYard-Server_syslog_config.json SmartYard-Server/server/syslog/config.json
+	cp docker/example_conf/SmartYard-Server_syslog_config.json SmartYard-Server/server/services/event/config.json
 	# copy example asterisk config for running
-	cp -R docker/asterisk/conf/* SmartYard-Server/install/asterisk/
+	cp -R docker/asterisk/conf/* SmartYard-Server/asterisk/
 	# cope default environments
 	cp .example.env .env
 
