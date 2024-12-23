@@ -51,3 +51,8 @@ docker network create --driver bridge --subnet=192.168.100.0/24 shared-network-d
     ```
     sudo make sys_down
     ```
+   
+---
+Create shared network
+```shell
+docker network create --driver bridge --subnet=192.168.100.0/24 shared-network-dev 
