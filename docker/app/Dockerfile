@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.4-fpm
 
 COPY docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
 
@@ -33,7 +33,8 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     pdo_pgsql \
     pgsql \
     yaml \
-    grpc
+    grpc \
+    luasandbox
 
 
 # Install composer

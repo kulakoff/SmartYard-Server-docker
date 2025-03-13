@@ -2,7 +2,7 @@
 #### Only test, not for production!
 1. ### Clone repos 
     ```
-    make sys_clone_libs
+    make rbt_clone_libs
     ```
 2. Create docker shared network
 ```shell
@@ -17,8 +17,13 @@ docker network create --driver bridge --subnet=192.168.100.0/24 shared-network-d
     ```
     sed -i 's/127.0.0.2/rbt-domain.com/g' docker/example_conf/SmartYard-Server_*.json
     ```
+4. ### ENV
+   Create `.env` file from example
+   ```shell
+   cp .example.env .env
+   ```
 
-4. ### Make your SSL certificate
+5. ### Make your SSL certificate
     Make ssl for NGINX and copy to dir docker/nginx/certs:  
     use [acme.sh](https://github.com/acmesh-official/acme.sh)
     copy do this dir or use default or use self-signed SSL:
@@ -27,32 +32,19 @@ docker network create --driver bridge --subnet=192.168.100.0/24 shared-network-d
    docker/nginx/conf.d/certs/nginx.crt
    ````
 
-5. #### Copy configs to SmartYard-Server project
+6. #### Copy configs to SmartYard-Server project
     copy server, client and asterisk configs
     ```
-    make sys_copy_configs
+    make rbt_copy_configs
     ```
 
-6. ### Start SmartYard-Server
+7. ### Start SmartYard-Server
     ```
-    sudo make sys_start
+    sudo make rbt_start
     ```
-
-7. ### Init db, set admin password
-    ````
-    docker exec -it rbt_app php server/cli.php --init-db
-    docker exec -it rbt_app php server/cli.php --init-clickhouse-db
-    docker exec -it rbt_app php server/cli.php --admin-password=<your very secret admin password>
-    docker exec -it rbt_app php server/cli.php --reindex
-    docker exec -it rbt_app php server/cli.php --install-crontabs
-    ````
 
 8. ### Stop SmartYard-Server
     ```
     sudo make sys_down
-    ```
-   
+    ``` 
 ---
-Create shared network
-```shell
-docker network create --driver bridge --subnet=192.168.100.0/24 shared-network-dev 
