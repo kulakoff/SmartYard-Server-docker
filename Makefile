@@ -1,17 +1,21 @@
 .DEFAULT_GOAL := help
 
-help: ## Help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
+# Load .env file
+include .env
+
+help: ## Show this help
+	@awk 'BEGIN {FS = ":.*?## "}; /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 ## 1 step
-sys_clone_libs: ## Clone SmartYard-Server libs
+rbt_clone_libs: ## Clone SmartYard-Server libs
 	# clone SmartYard-Server
-	#git clone --depth=1 https://github.com/rosteleset/SmartYard-Server.git
 	git clone https://github.com/rosteleset/SmartYard-Server.git
+
 	# download server libs
 	git clone --depth=1 https://github.com/PHPMailer/PHPMailer SmartYard-Server/server/lib/PHPMailer
 	git clone --depth=1 https://github.com/ezyang/htmlpurifier SmartYard-Server/server/lib/htmlpurifier
 	git clone -b 1.7.x --depth=1 https://github.com/erusev/parsedown SmartYard-Server/server/lib/parsedown
+
 	# download client libs
 	git clone --branch v3.2.0 --depth=1 https://github.com/ColorlibHQ/AdminLTE SmartYard-Server/client/lib/AdminLTE
 	git clone --depth=1 https://github.com/davidshimjs/qrcodejs SmartYard-Server/client/lib/qrcodejs
@@ -21,37 +25,31 @@ sys_clone_libs: ## Clone SmartYard-Server libs
 	npm --prefix SmartYard-Server/client/lib/Leaflet/ install
 	npm --prefix SmartYard-Server/client/lib/Leaflet run build
 
-	# install mzfc libs
-	docker run --rm -it -v "$(shell pwd)/SmartYard-Server/server/mzfc/mongodb:/app" composer/composer require mongodb/mongodb --ignore-platform-reqs
+	# install composer apps
+	docker run --rm -it -v "$(pwd)/SmartYard-Server/server:/app" composer/composer install --ignore-platform-reqs
 
 ## 2 step
-sys_copy_configs: ## Copy SmartYard-Server example configs
-	# create SmartYard-Server client config
+rbt_copy_configs: ## Copy SmartYard-Server example configs
 	cp docker/example_conf/SmartYard-Server_client_config.json SmartYard-Server/client/config/config.json
-	# create SmartYard-Server server config
 	cp docker/example_conf/SmartYard-Server_server_config.json SmartYard-Server/server/config/config.json
-	# create SmartYard-Server syslog
 	cp docker/example_conf/SmartYard-Server_syslog_config.json SmartYard-Server/server/services/event/config.json
-	# copy example asterisk config for running
 	cp -R docker/asterisk/conf/* SmartYard-Server/asterisk/
-	# cope default environments
 	cp .example.env .env
 
-sys_init_config: ##  SmartYard-Server initial config
-	# init db
-	docker exec -it rbt_app php server/cli.php --init-db
-	# Init clichouse
-	docker exec -it rbt_app php server/cli.php --init-clickhouse-db
-	# Init crontab
-	docker exec -it rbt_app php server/cli.php --install-crontabs
+rbt_init_config: ## SmartYard-Server initial config
+	docker exec -it rbt_app_$(RBT_INSTANCE) php server/cli.php --init-db
+	docker exec -it rbt_app_$(RBT_INSTANCE) php server/cli.php --init-clickhouse-db
+	docker exec -it rbt_app_$(RBT_INSTANCE) php server/cli.php --admin-password=$(RBT_ADMIN_PASSWORD)
+	docker exec -it rbt_app_$(RBT_INSTANCE) php server/cli.php --reindex
+	docker exec -it rbt_app_$(RBT_INSTANCE) php server/cli.php --install-crontabs
 
-## 	3 Start SmartYard-Server services
-sys_start:	## Start RBT services
+## 3 step
+rbt_start: ## Start RBT services
 	docker compose up -d
 
-## 4 Stop RBT services
-sys_stop:	## Stop RBT services
+## 4 step
+rbt_stop: ## Stop RBT services
 	docker compose down
 
-sys_restart: ## Restart RBT services
-	make sys_stop && make sys_start
+rbt_restart: ## Restart RBT services
+	docker compose restart
