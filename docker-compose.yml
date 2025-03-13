@@ -123,6 +123,8 @@ services:
         ipv4_address: "${RBT_EVENT_SERVER_NETWORK_ADDRESS}"
 
   push:
+    profiles:
+      - push
     container_name: "rbt_push_${RBT_INSTANCE}"
     build:
       context: .
@@ -141,6 +143,8 @@ services:
         ipv4_address: "${RBT_PUSH_SERVICE_NETWORK_ADDRESS}"
 
   mosquitto:
+    profiles:
+      - mosquitto
     image: eclipse-mosquitto
     container_name: "rbt_mqtt_${RBT_INSTANCE}"
     #TODO: add configs
