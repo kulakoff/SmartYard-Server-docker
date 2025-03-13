@@ -7,7 +7,7 @@ help: ## Show this help
 	@awk 'BEGIN {FS = ":.*?## "}; /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 ## 1 step
-rbt_clone_libs: ## Clone SmartYard-Server libs
+rbt_clone_libs: ## Clone RBT libs
 	# clone SmartYard-Server
 	git clone https://github.com/rosteleset/SmartYard-Server.git
 
@@ -29,14 +29,14 @@ rbt_clone_libs: ## Clone SmartYard-Server libs
 	docker run --rm -it -v "$(pwd)/SmartYard-Server/server:/app" composer/composer install --ignore-platform-reqs
 
 ## 2 step
-rbt_copy_configs: ## Copy SmartYard-Server example configs
+rbt_copy_config: ## Copy RBT example configs
 	cp docker/example_conf/SmartYard-Server_client_config.json SmartYard-Server/client/config/config.json
 	cp docker/example_conf/SmartYard-Server_server_config.json SmartYard-Server/server/config/config.json
 	cp docker/example_conf/SmartYard-Server_syslog_config.json SmartYard-Server/server/services/event/config.json
 	cp -R docker/asterisk/conf/* SmartYard-Server/asterisk/
 	cp .example.env .env
 
-rbt_init_config: ## SmartYard-Server initial config
+rbt_init_config: ## RBT initial config
 	docker exec -it rbt_app_$(RBT_INSTANCE) php server/cli.php --init-db
 	docker exec -it rbt_app_$(RBT_INSTANCE) php server/cli.php --init-clickhouse-db
 	docker exec -it rbt_app_$(RBT_INSTANCE) php server/cli.php --admin-password=$(RBT_ADMIN_PASSWORD)
@@ -53,3 +53,9 @@ rbt_stop: ## Stop RBT services
 
 rbt_restart: ## Restart RBT services
 	docker compose restart
+
+rbt_install: ## install
+	rbt_clone_libs
+	rbt_copy_config
+	rbt_init_config
+	docker network create --driver bridge --subnet=192.168.100.0/24 shared-network-dev
