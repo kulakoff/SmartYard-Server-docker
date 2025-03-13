@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   nginx:
     image: nginx:latest
@@ -16,6 +14,7 @@ services:
       default:
         ipv4_address: "${RBT_NGINX_NETWORK_ADDRESS}"
       shared-network-dev:
+
   app:
     container_name: "rbt_app_${RBT_INSTANCE}"
     build:
@@ -154,6 +153,8 @@ services:
         ipv4_address: "${RBT_MOSQUITTO_NETWORK_ADDRESS}"
 
   kamailio:
+    profiles:
+      - sbc
     container_name: "rbt_kamailio_${RBT_INSTANCE}"
     build:
       context: .
@@ -166,6 +167,8 @@ services:
       - rtpengine
 
   kamailio_dev:
+    profiles:
+      - sbc
     container_name: "rbt_kamailio_dev_${RBT_INSTANCE}"
     build:
       context: .
@@ -178,6 +181,8 @@ services:
       - rtpengine
 
   rtpengine:
+    profiles:
+      - sbc
     container_name: "rbt_rtpengine_${RBT_INSTANCE}"
     image: fonoster/rtpengine:latest
     network_mode: host

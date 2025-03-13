@@ -34,17 +34,26 @@ docker network create --driver bridge --subnet=192.168.100.0/24 shared-network-d
 
 6. #### Copy configs to SmartYard-Server project
     copy server, client and asterisk configs
-    ```
+    ```shell
     make rbt_copy_configs
     ```
 
 7. ### Start SmartYard-Server
-    ```
+    ```shell
     sudo make rbt_start
     ```
 
 8. ### Stop SmartYard-Server
-    ```
+    ```shell
     sudo make sys_down
     ``` 
 ---
+### other
+run include kamailio containers
+```shell
+docker compose --profile sbc up -d 
+```
+stop
+```shell
+docker compose --profile sbc dwon
+```
