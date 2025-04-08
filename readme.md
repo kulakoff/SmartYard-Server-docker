@@ -58,7 +58,6 @@ stop
 docker compose --profile sbc dwon
 ```
 
-
 ---
 ### Prometheus stack
 start

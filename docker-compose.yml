@@ -31,6 +31,7 @@ services:
     networks:
       default:
         ipv4_address: "${RBT_APP_NETWORK_ADDRESS}"
+      shared-network-dev:
 
   redis:
     container_name: "rbt_db_redis_${RBT_INSTANCE}"
