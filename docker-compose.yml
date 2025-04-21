@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   nginx:
     image: nginx:latest
@@ -23,6 +25,8 @@ services:
     volumes:
       - ./SmartYard-Server/:/var/www/html
       - rbt_app:/var/spool/cron/crontabs
+    environment:
+      TZ: Europe/Moscow
     depends_on:
       - redis
       - clickhouse_server
@@ -59,7 +63,7 @@ services:
 
   postgres:
     container_name: "rbt_db_postgres_${RBT_INSTANCE}"
-    image: "postgres:${RBT_POSTGRES_PORT_VERSION}"
+    image: "postgres:${RBT_POSTGRES_VERSION}"
     environment:
       POSTGRES_DB: "${RBT_POSTGRES_DB}"
       POSTGRES_USER: "${RBT_POSTGRES_USER}"
