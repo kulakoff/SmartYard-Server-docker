@@ -2,7 +2,7 @@ FROM debian:buster-slim
 LABEL maintainer="LanTa team"
 
 USER root
-ENV ASTERISK_VERSION 18-current
+ENV ASTERISK_VERSION 20-current
 
 COPY ./docker/asterisk/build-asterisk.sh /
 RUN sh build-asterisk.sh
