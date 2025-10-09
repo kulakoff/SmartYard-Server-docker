@@ -34,8 +34,9 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     pgsql \
     yaml \
     grpc \
-    luasandbox
-
+    luasandbox \
+    intl
+git
 # Install composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN curl -sS https://getcomposer.org/installer | php -- \
