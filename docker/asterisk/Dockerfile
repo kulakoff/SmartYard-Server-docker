@@ -1,8 +1,8 @@
-FROM debian:buster-slim
-LABEL maintainer="LanTa team"
+FROM ubuntu:22.04
+LABEL maintainer="anton.kulakoff@ya.ru"
 
 USER root
-ENV ASTERISK_VERSION 20-current
+ENV ASTERISK_VERSION 22-current
 
 COPY ./docker/asterisk/build-asterisk.sh /
 RUN sh build-asterisk.sh
